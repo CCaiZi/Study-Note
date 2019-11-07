@@ -51,6 +51,22 @@
  */
 
 
+// function factorialize(num){
+//  var a = num;
+//   if(num < 0){
+//      return "请输入有效数字";
+//    }else if(num === 0 || num === 1){
+//      return 1;
+//    }else{
+//      while (num > 1) {
+//        a = a * (num--);
+//     }
+//   }
+//   console.log(a);
+//   // return a;
+// }
+
+
 function factorialize(num){
  var a = num;
   if(num < 0){
@@ -59,7 +75,7 @@ function factorialize(num){
      return 1;
    }else{
      while (num > 1) {
-       a = a * (num--);
+       a = a * (--num);
     }
   }
   console.log(a);
