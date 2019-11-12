@@ -1,0 +1,108 @@
+##
+说来也好笑，昨晚睡觉的时候，脑袋里蹦出 translate、transform、transition 这三个单词，一下又想不清这三者之间的关系，决定今天查查文档，哪知道折腾了好长时间。
+
+第一、 translate()：
+MDN文档是这样定义的：允许你单独指定 transforms 中的平移，并独立于 transform 属性。它可以接受3个参数，参数可以是长度值或百分比；
+    如果是一个参数，表示在X轴和Y轴进行二维上的平移。
+    如果是两个参数，表示在二维上，分别按照指定X轴和Y轴的值进行平移。
+    如果是三个参数，表示在三维上分别按照指定的X轴、Y轴、Z轴的值，进行平移；等同于3D。
+    如果值是 none,表示平移效果没有被应用。
+
+看到这里是不是觉得 translate()特别棒，但要注意的是，截至到我写这篇文章为止，除了 FireFox 浏览器支持外，其他浏览器都不支持.
+
+
+所以，这上面的案例，除非是在 FrieFox 浏览器上调试，其他浏览器上显示不了效果，这也是我在调试的过程中都没有注意到的地方，花了好长时间；欣慰的是，将上面的案例用另一种方式实现出来，方便其他人在浏览案例的时候能方便理解。
+这是MDN上案例的源码：
+
+<div>
+  <p class="translate">Translation</p>
+</div>
+
+<style>
+    * {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+}
+
+div {
+  width: 150px;
+  margin: 0 auto;
+}
+
+p {
+  padding: 10px 5px;
+  border: 3px solid black;
+  border-radius: 20px;
+  width: 150px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.translate {
+  transition: translate 1s;
+}
+
+div:hover .translate {
+  translate: 200px 50px;
+}
+</style>
+
+整个代码的语义是：
+当鼠标移到 div 上时，激发 hover伪类，使 class = "translate" 的元素分别沿X轴平移200px;Y轴平移50px;
+
+我的代码是：
+
+<style>
+    div{
+        margin: 0 auto;
+        width: 150px;
+        height: 80px;
+        border: 1px solid red;
+      }
+      div:hover .translate{
+        transform: translate(30px,10px);
+      }
+</style>
+ example里面有这个小案例。
+
+第二、 transform():
+在W3school上是这样定义的：
+    transform 属性向元素应用2D或3D转换。该属性允许我们对元素进行旋转、缩放、移动或倾斜。
+    它有四个方法:
+    translate ：平移；
+    rotate : 旋转；
+    scale ： 缩放；
+    skew : 斜切；
+当 transform 的4个方法叠加使用时，先做平移，在做其他的。
+
+第三、 transition():
+在MDN上是这样定义的：
+    transition()属性可以被指定为一个或多个CSS属性的过渡效果，多个属性之间用逗号进行分隔。
+    transition() 有4个值：
+    transition-property : 指定CSS属性的name;
+    transition-duration ：动画持续时间；
+    transition-timing-function ： 切换动画的速度；
+    transition-delay ：动画执行前的延迟时间；
+
+第四、animation():
+MDN上是这样定义的：
+    animation 属性用来指定一组或多组动画，每组之间用逗号相隔。
+    属性值如下：
+    animation-name ： 动画名称；
+    animation-duration ：动画时间；
+     animation-timing-function ：动画速度；
+    animation-delay ：动画延迟；
+    animation-iteration-count ：动画次数；
+    animation-direction ：动画方向；
+    animation-fill-mode ：动画播放状态；
+    animation-play-state ： 动画完成时的状态；
+
+总结一下：
+translate： 指的是元素从当前位置移动的方法，是 transform 中的一个方法；
+transform ： 给指定的元素变形、改变；
+transition ： 允许CSS属性值在一定时间内过渡，产生动画效果；
+animation :  指定某个属性在两个值之间通过何种方式过渡来实现动画；
+
