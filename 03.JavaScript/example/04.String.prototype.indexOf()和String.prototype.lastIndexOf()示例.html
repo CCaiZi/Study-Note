@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+</head>
+<body>
+  <script>
+    var str = "9876 5undefined43 21";
+    var exampleA1 = str.indexOf();
+    var exampleA2 = str.indexOf('d',-9);
+    var exampleA3 = str.indexOf('d',0);
+    var exampleA4 = str.indexOf('d',30);
+    var exampleA5 = str.indexOf('',0);
+    var exampleA6 = str.indexOf('',-5);
+
+    var exampleB1 = str.lastIndexOf('',-11);
+    var exampleB2 = str.lastIndexOf('9',-11);
+    var exampleB3 = str.lastIndexOf('9',0);
+    var exampleB4 = str.lastIndexOf('a',-11);
+    var exampleB5 = str.lastIndexOf('a',0);
+    var exampleB6 = str.lastIndexOf('',-11);
+    var exampleB7 = str.lastIndexOf('',0);
+
+    var exampleC1 = str.lastIndexOf();
+    var exampleC2 = str.lastIndexOf('u',30);
+    var exampleC3 = str.lastIndexOf('a',30);
+    var exampleC4 = str.lastIndexOf('',30);
+
+
+    console.log('str总长度为>' + str.length);
+    console.log('indexOf()中没有提供参数，第一个参数会被强制设置为undefined。' + '\n' + 'exampleA1在str中的索引值是>>' + exampleA1);
+    console.log('indexOf()第二个参数小于0等价于传入了0' + '\n' + 'exampleA2第二个参数是-9，返回值是>>>' + exampleA2 + '\n' + 'exampleA3中第二个参数是0,返回值是>>>' + exampleA3);
+    console.log('indexOf()中第二个参数大于str.length，则返回-1' + '\n' + 'exampleA4中第二个参数为30，返回值是>>>>' + exampleA4);
+    console.log('indexOf()第一个参数是空字符串，第二个参数小于或等于0时，则返回0' + '\n' + 'exampleA5第二个参数为0，返回值为>>>>>' + exampleA5 + '\n' + 'exampleA6第二个参数小于0时，返回值为>>>>>' + exampleA6);
+
+    console.log('lastIndexOf()第一个参数是空字符串时，第二个参数小于str.length时，则将第二个参数返回' + '\n' + 'exampleB1第一个参数是空字符串，第二个参数为11，返回值为>>>>>>' + exampleB1);
+    console.log('lastIndexOf()第二个参数小于0时，则返回值等同于传入0' + '\n' + '当第一个参数就在字符串索引为0处时,返回值为0' + '\n' + 'exampleB2和exampleB3第一个参数都是字符串9' + '\n' + 'exampleB2返回值为>>>>>>>' + exampleB2 + '\n' + 'exampleB3返回值为>>>>>>>' + exampleB3 + '\n' + '当第一个参数不在字符串中或者不在字符串索引为0的位置时，返回值为-1' + '\n' + 'exampleB4和exampleB5第一个参数都是字符串a' + '\n' + 'exampleB4返回值为>>>>>>>>' + exampleB4 + '\n' + 'exampleB5返回值为>>>>>>>>' + exampleB5 + '\n' + '当第一个参数为空字符串时，返回值为0；' + '\n' + 'exampleB6和exampleB7第一个参数都是空字符串' + '\n' + 'exampleB6返回值为>>>>>>>>>' + exampleB6 + '\n' + 'exampleB7返回值为>>>>>>>>>' + exampleB7);
+
+    console.log('indexOf()中没有提供参数，第一个参数会被强制设置为undefined。' + '\n' + 'exampleA1在str中的索引值是>>' + exampleA1 + '\n' + 'lastIndexOf()中没有提供参数，第一个参数会被强制设置为undefined。' + '\n' + 'exampleC1在str中的索引值是>>' + exampleC1);
+    console.log('lastIndexOf()第二个参数大于字符串长度时' + '\n' + '如果第一个参数是空字符串，则返回整个字符串的长度' + '\n' + 'exampleC4第一个参数是空字符串，返回值为>>>>>>>>>' + exampleC4 + '\n' + '如果是其他字符串，则检索整个字符串，检索到了返回索引值；没有检索到，返回-1' + '\n' + 'exampleC2第一个参数能检索到，返回值为>>>>>>>' + exampleC2 + '\n' +'exampleC3第一个参数不能检索到，返回值为>>>>>>>' + exampleC3);
+  </script>
+</body>
+</html>
