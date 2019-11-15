@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+</head>
+<body>
+  <script>
+    /*分析一 : X为数字
+    var x = 3;
+    var y = 'a';
+    var z = 'b';
+
+    y += x;
+    z =+ x;
+    console.log(y);  // 'a3'
+    console.log(z);  //  3
+
+    console.log(Number(x));   // 3
+    */
+
+   /*分析二 ：X为数字字符串
+   var x = '3';
+   var y = 'a';
+   var z = 'b';
+
+   y += x;
+   z =+ x;
+   console.log(y);   //  'a3'
+   console.log(z);   //  3
+
+   console.log(Number(x));   // 3
+   */
+
+  /*分析三 ： X为字母字符串
+  var x = 'c';
+  var y = 'a';
+  var z = 'b';
+
+  y += x;
+  z =+ x;
+  console.log(y);   //  'ac'
+  console.log(z);   //  NaN
+
+  console.log(Number(x));   //  NaN
+  */
+
+  /*分析四 ： X为布尔值
+  var x = true;
+  var y = 'a';
+  var z = 'b';
+
+  y += x;
+  z =+ x;
+  console.log(y);   // 'atrue'
+  console.log(z);   //  1
+
+  console.log(Number(x));   //  1
+  */
+
+  /*
+  var x = false;
+  var y = 'a';
+  var z = 'b';
+
+  y += x;
+  z =+ x;
+  console.log(y);   //  'afalse'
+  console.log(z);   //  0
+
+  console.log(Number(x));   //  0
+ */
+
+  /*分析五： X为 undefined
+  var x = undefined;
+  var y = 'a';
+  var z = 'b';
+
+  y += x;
+  z =+ x;
+  console.log(y);   //  'aundefined'
+  console.log(z);   //  NaN
+
+  console.log(Number(x));   //  NaN
+  */
+
+  /*分析六 ： X为null
+  var x = null;
+  var y = 'a';
+  var z = 'b';
+
+  y += x;
+  z =+ x;
+  console.log(y);   //  'anull'
+  console.log(z);   //   0
+
+  console.log(Number(x));     // 0
+  */
+
+  /*分析七 : X为空字符串
+  var x = '';
+  var y = 'a';
+  var z = 'b';
+
+  y += x;
+  z =+ x;
+  console.log(y);   // 'a'
+  console.log(z);   //  0
+
+  console.log(Number(x));   // 0
+  */
+
+  /*分析八 ： X为NaN
+  var x = NaN;
+  var y = 'a';
+  var z = 'b';
+
+  y += x;
+  z =+ x;
+  console.log(y);   // 'aNaN'
+  console.log(z);   //  NaN
+
+  console.log(Number(x));     //  NaN
+  */
+  </script>
+</body>
+</html>
