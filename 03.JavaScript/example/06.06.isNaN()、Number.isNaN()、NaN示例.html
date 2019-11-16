@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+</head>
+<body>
+  <script>
+    var a = 'str';
+    var b = 3;
+    var c = a/b;
+
+    console.log(c);         //  NaN
+    console.log(isNaN(a));  //  true
+    console.log(isNaN(b));  //  false
+    console.log(isNaN(c));  //  true
+
+    console.log(Number.isNaN(a));   //  false
+    console.log(Number.isNaN(b));   //  false
+    console.log(Number.isNaN(c));   //  true
+  </script>
+</body>
+</html>
