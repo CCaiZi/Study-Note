@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Reverse a String</title>
+  <style>
+    div{
+      margin:0 20% 0 20%;
+    }
+    h1{
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>翻转字符串</h1>
+    <h3>题目：</h3>
+    <p>先把字符串转化为数组，再借助数组的reverse方法翻转数组顺序，最后把数组转化成字符串。</p>
+    <h3>代码如下：</h3>
+    <pre>
+      function reverseString(str){
+        console.log(str);     //这行代码用于调试结果
+        return str;
+      }
+
+      reverseString("hello");
+    </pre>
+    <h3>要求：</h3>
+    <ol>
+      <li>
+        <pre>reverseString("hello") 应该返回一个字符串</pre>
+      </li>
+      <li>
+        <pre>reverseString("hello") 应该返回"olleh"</pre>
+      </li>
+      <li>
+        <pre>reverseString("Howdy") 应该返回"ydwoH"</pre>
+      </li>
+      <li>
+        <pre>reverseString("Greetings from Earth") 应该返回"htraE morf sgniteerG"</pre>
+      </li>
+    </ol>
+
+    <h4>打开控制台调试解题代码</h4>
+  </div>
+
+  <script>
+    function reverseString(str){
+      console.log(str.split('').reverse().join(""));
+    }
+
+    reverseString("hello");
+  </script>
+</body>
+</html>
