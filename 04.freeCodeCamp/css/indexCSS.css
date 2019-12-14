@@ -1,0 +1,19 @@
+/*
+* @Author: Foeveryou
+* @Date:   2019-12-11 20:30:31
+* @Last Modified by:   Foeveryou
+* @Last Modified time: 2019-12-11 20:49:31
+*/
+#no1{
+  margin:0 20% 0 20%;
+  border:1px solid #ccc;
+}
+.no2{
+  padding: 10px 20px;
+}
+h1{
+  text-align: center;
+}
+#answerDiv{
+  display: none;
+}
