@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Find the Longest Word in a String</title>
+  <link rel="stylesheet" type="text/css" href="css/indexCSS.css">
+</head>
+<body>
+  <div id="no1">
+    <div class="no2">
+      <h1>找出最长单词</h1>
+      <h3>题目：</h3>
+      <p>在句子中找出最长的单词，并返回它的长度</p>
+      <p>函数的返回值应该是一个数字</p>
+
+      <h3>代码如下：</h3>
+      <pre>
+        function findLongestWord(str) {
+          // 请把你的代码写在这里
+          return str.length;
+        }
+
+        findLongestWord("The quick brown fox jumped over the lazy dog");
+      </pre>
+      <p>要求：</p>
+      <ul>
+        <li>findLongestWord("The quick brown fox jumped over the lazy dog") 应该返回一个数字</li>
+        <li>findLongestWord("The quick brown fox jumped over the lazy dog") 应该返回 6.</li>
+        <li>findLongestWord("May the force be with you") 应该返回 5.</li>
+        <li>findLongestWord("Google do a barrel roll") 应该返回 6.</li>
+        <li>findLongestWord("What is the average airspeed velocity of an unladen swallow") 应该返回 8.</li>
+        <li>findLongestWord("What if we try a super-long word such as otorhinolaryngology") 应该返回 19.</li>
+      </ul>
+      <button id="btn">答案</button>
+    </div>
+
+    <div id="answerDiv" class="no2">
+      <h5>解法一：</h5>
+      <pre>
+        function findLongestWord(str) {
+          var a = str.split(" ");
+          //初始化b的值，方便与a数组中单词的长度对比
+          var b = 0;
+          for(var i = 0; i < a.length; i++){
+            //如果a数组中的单词长度大于b，就将该词的长度值赋给b，然后继续比较
+            //直到遍历整个数组，那么b的值就是数组中单词长度最大的值
+            if(a[i].length > b){
+              b = a[i].length;
+            }
+          }
+          return b;
+        }
+
+        findLongestWord("The quick brown fox jumped over the lazy dog");
+      </pre>
+
+      <h5>解法二：</h5>
+      <pre>
+        function findLongestWord(str) {
+          var a = str.split(" ");
+          //这里使用的是降序排列，也就是单词长度大的排在前面
+          a.sort(function(m,n){
+            return n.length - m.length;
+          })
+          return a[0].length;
+        }
+
+        findLongestWord("The quick brown fox jumped over the lazy dog");
+      </pre>
+    </div>
+  </div>
+
+<script src="js/indexJS.js" type="text/javascript" ></script>
+</body>
+</html>
