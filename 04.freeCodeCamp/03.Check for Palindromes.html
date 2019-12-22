@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Check for Palindromes</title>
+  <link rel="stylesheet" type="text/css" href="css/indexCSS.css">
+</head>
+<body>
+  <div id="no1">
+    <div class="no2">
+      <h1>检查回文字符串</h1>
+      <h3>题目：</h3>
+      <p>如果给定的字符串是回文，返回true,反之,返回false</p>
+      <p>如果一个字符串忽略标点符号、大小写和空格，正着读和反着读一模一样，那么这个字符串就是palindrome(回文)</p>
+      <p>注意： 你需要去掉字符串多余的标点符号和空格，然后把字符串转化成小写来验证此字符串是否为回文</p>
+      <p>函数的参数的值可以为"racecar"、"RaceCar"和"race CAR"</p>
+      <h3>代码如下：</h3>
+      <pre>
+        function palindrome(str) {
+          // 请把你的代码写在这里
+          return true;
+        }
+
+
+
+        palindrome("eye");
+      </pre>
+      <p>要求：</p>
+      <ul>
+        <li>palindrome("eye") 应该返回一个布尔值</li>
+        <li>palindrome("eye") 应该返回 true.</li>
+        <li>palindrome("race car") 应该返回 true.</li>
+        <li>palindrome("not a palindrome") 应该返回 false.</li>
+        <li>palindrome("A man, a plan, a canal. Panama") 应该返回 true.</li>
+        <li>palindrome("never odd or even") 应该返回 true.</li>
+        <li>palindrome("nope") 应该返回 false.</li>
+        <li>palindrome("almostomla") 应该返回 false.</li>
+        <li>palindrome("My age is 0, 0 si ega ym.") 应该返回 true.</li>
+        <li>palindrome("1 eye for of 1 eye.") 应该返回 false.</li>
+        <li>palindrome("0_0 (: /-\ :) 0-0") 应该返回 true.</li>
+      </ul>
+      <button id="btn">答案</button>
+    </div>
+
+    <div id="answerDiv" class="no2">
+      <h5>解法一：</h5>
+      <pre>
+        function palindrome(str) {
+          var a = str.toLowerCase().replace(/[\W\s_]/g,'');
+          var b = a.split("").reverse().join('');
+          return a === b;
+        }
+
+        palindrome("eye");
+      </pre>
+
+      <h5>解法二：</h5>
+      <pre>
+        function palindrome(str) {
+          var a = str.toLowerCase().replace(/[\W\s_]/g,'');
+
+          //将字符串截取一半，用for循环对比前面一半和后面一半是否相同
+          for(var i = 0; i < a.length/2; i++){
+            if(a[i] !== a[a.length - i - 1]){
+             return false;
+            }
+          }
+          return true;
+        }
+
+        palindrome("eye");
+      </pre>
+    </div>
+  </div>
+
+<script src="js/indexJS.js" type="text/javascript" ></script>
+</body>
+</html>
