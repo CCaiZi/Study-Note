@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>contains方法</title>
+</head>
+
+<body>
+   <!-- contains 方法是用来判断元素A是否包含了元素B，包含返回 true,不包含返回false。 -->
+
+    <div id="parent">
+        父元素
+        <div id="children">子元素</div>
+    </div>
+    <script>
+        var A = document.getElementById('parent');
+        var B = document.getElementById('children');
+
+        console.log(A.contains(B));
+        console.log(B.contains(A));
+    </script>
+
+</body>
+
+</html>

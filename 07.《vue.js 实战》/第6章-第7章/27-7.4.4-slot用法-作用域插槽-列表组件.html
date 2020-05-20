@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>slot用法-作用域插槽-列表组件</title>
+</head>
+<body>
+  <!-- 在子组件内使用特殊的 <slot> 元素就可以为这个子组件开启一个slot(插槽)，
+  在父组件模板里，插入子组件标签内的所有内容将替代子组件的<slot>标签及它的内容。 -->
+
+    <!-- 作用域插槽是一种特殊的 slot，使用一个可以复用的模板替换已渲染元素。 -->
+  <div id="app">
+    <my-list :books="books">
+      <!-- 作用域插槽也可以是具名的 Slot -->
+      <template slot="book" scope="props">
+        <li>{{ props.bookName }}</li>
+      </template>
+    </my-list>
+  </div>
+  <script type="text/javascript" src="../vue.js"></script>
+  <script>
+    Vue.component('my-list',{
+      props: {
+        books: {
+          type: Array,
+          default: function(){
+            return [];
+          }
+        }
+      },
+      template: '\
+      <ul>\
+        <slot name="book"\
+        v-for="book in books"\
+        :book-name="book.name">\
+        <!-- 这里也可以写默认 slot 内容 -->\
+      </slot>\
+      </ul>'
+    });
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        books: [
+          { name: '《Vue.js 实战》' },
+          { name: '《JavaScript 语言精粹》' },
+          { name: '《JavaScript 高级程序设计》' }
+        ]
+      }
+    });
+  </script>
+
+  <!-- 子组件 my-list 接收一个来自父级的 prop 数组 books,
+  并且将它在 name 为 book 的 slot 上使用 v-for 指令循环，
+  同时暴露一个变量 bookName。 -->
+  <!-- 作用域插槽的使用场景就是既可以复用子组件的 slot ，
+  又可以使 slot 内容不一致。
+  如果还在其他组件内使用，<li> 的内容渲染权是由使用者掌握，
+  而数据却可以通过临时变量(比如 props) 从子组件内获取。 -->
+</body>
+</html>

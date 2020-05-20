@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript的 if、else语句和数组map方法配合渲染列表</title>
+</head>
+
+<body>
+    <div id="app">
+        <ele :list="list"></ele>
+        <button @click="handleClick">显示列表</button>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+    Vue.component('ele', {
+        render: function(createElement) {
+            if (this.list.length) {
+                return createElement('ul', this.list.map(function(item) {
+                    return createElement('li', item);
+                }));
+            } else {
+                return createElement('p', '列表为空');
+            }
+        },
+        props: {
+            list: {
+                type: Array,
+                default: function() {
+                    return [];
+                }
+            }
+        }
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            list: []
+        },
+        methods: {
+            handleClick: function() {
+                this.list = [
+                    '《Vue.js 实战》',
+                    '《JavaScript 高级程序设计》',
+                    '《《JavaScript 语言精粹》'
+                ]
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件高级用法-递归组件</title>
+</head>
+<body>
+
+<!-- 组件在它的模板内可以递归的调用自己，只要给组件设置 name 的选项就可以了。 -->
+
+  <div id="app">
+    <child-component :count="1">
+    </child-component>
+  </div>
+  <script type="text/javascript" src="../vue.js"></script>
+  <script>
+    Vue.component('child-component',{
+      name: 'child-component',
+      props: {
+        count: {
+          type: Number,
+          default: 1
+        }
+      },
+      template: '\
+      <div class="child">\
+        <child-component\
+            :count="count + 1"\
+            v-if="count < 3"></child-component>\
+          1</div>'
+    });
+
+    var app = new Vue({
+      el: '#app'
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VNode重复渲染多个组件(或元素)-1</title>
+</head>
+
+<body>
+    <div id="app">
+        <ele></ele>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+    var Child = {
+      render: function(createElement){
+        return createElement('p', 'text');
+      }
+    };
+
+    Vue.component('ele', {
+        render: function(createElement) {
+            return createElement('div',
+              Array.apply(null, {
+                length: 5
+              }).map(function(){
+                return createElement(Child);
+              })
+              );
+        }
+    })
+
+    var app = new Vue({
+        el: '#app'
+    })
+    </script>
+</body>
+
+</html>

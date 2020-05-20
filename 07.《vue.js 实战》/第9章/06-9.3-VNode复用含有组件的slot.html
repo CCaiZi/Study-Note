@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VNode复用含有组件的slot</title>
+</head>
+
+<body>
+    <div id="app">
+        <ele>
+          <div>
+            <Child></Child>
+          </div>
+        </ele>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+    // 全局注册组件
+    Vue.component('Child', {
+      render: function(createElement){
+        return createElement('p', 'text');
+      }
+    });
+
+    Vue.component('ele', {
+        render: function(createElement) {
+            // 克隆 slot 节点的方法
+            function cloneVNode(vnode){
+              // 递归遍历所有子节点，并克隆
+              const clonedChildren = vnode.children && vnode.children.map(function(vnode){
+                return cloneVNode(vnode);
+              });
+              const cloned = createElement(vnode.tag, vnode.data, clonedChildren);
+              cloned.text = vnode.text;
+              cloned.isComment = vnode.isComment;
+              cloned.componentOptions = vnode.componentOptions;
+              cloned.elm = vnode.elm;
+              cloned.ns = vnode.ns;
+              cloned.context = vnode.context;
+              cloned.isStatic = vnode.isStatic;
+              cloned.key = vnode.key;
+
+              return cloned;
+            }
+
+            const vNodes = this.$slots.default;
+            const clonedVNodes = vNodes.map(function(vnode){
+              return cloneVNode(vnode);
+            });
+
+            return createElement('div', [vNodes, clonedVNodes]);
+        }
+    })
+
+    var app = new Vue({
+        el: '#app'
+    })
+    </script>
+</body>
+
+</html>

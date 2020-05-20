@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>函数化组件-根据数据智能选择不同组件的场景</title>
+</head>
+<!-- Vue.js 提供了一个 functional 的布尔值选项。设置为 true 可以使组件无状态和无实例，
+也就是没有 data 和 this 上下文。这样用 render 函数返回虚拟节点可以更容易渲染，
+因为函数化组件只是一个函数，渲染开销要小很多。 -->
+
+<!-- 使用函数化组件时，Render 函数提供了第二个参数 context 来提高临时上下文。
+组件需要的 data、props、slots、children、parent 都是通过这个上下文来传递的，
+比如 this.level 要改写成 context.props.level , this.$slots.default 改写为 context.children -->
+
+<body>
+    <div id="app">
+        <smart-item :data="data"></smart-item>
+        <button @click="change('img')">切换为图片组件</button>
+        <button @click="change('video')">切换为视频组件</button>
+        <button @click="change('text')">切换为文本组件</button>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+    // 图片组件选项
+    var ImgItem = {
+        props: ['data'],
+        render: function(createElement){
+            return createElement('div', [
+                createElement('p', '图片组件'),
+                createElement('img', {
+                    attrs: {
+                        src: this.data.url
+                    }
+                })
+                ]);
+        }
+    }
+
+    // 视频组件选项
+    var VideoItem = {
+        props: ['data'],
+        render: function(createElement){
+            return createElement('div', [
+                createElement('p', '视频组件'),
+                createElement('video', {
+                    attrs: {
+                        src: this.data.url,
+                        controls: 'controls',
+                        autoplay: 'autoplay'
+                    }
+                })
+                ]);
+        }
+    }
+
+    // 纯文本组件选项
+    var TextItem = {
+        props: ['data'],
+        render: function(createElement){
+            return createElement('div', [
+                createElement('p', '纯文本组件'),
+                createElement('p', this.data.text)
+                ]);
+        }
+    }
+
+
+    Vue.component('smart-item', {
+        // 函数化组件
+        functional: true,
+        render: function(createElement, context) {
+            // 根据传入的数据，智能判断显示哪种组件
+            function getComponent(){
+                var data = context.props.data;
+                // 判断 prop: data 的 type 字段是属于哪种类型的组件
+                if (data.type === 'img') return ImgItem;
+                if (data.type === 'video') return VideoItem;
+                return TextItem;
+            }
+            return createElement(
+                getComponent(),
+                {
+                    props: {
+                        // 把 smart-item 的 prop: data 传给上面只能选择的组件
+                        data: context.props.data
+                    }
+                },
+                context.children
+                )
+        },
+        props: {
+            data: {
+                type: Object,
+                required: true
+            }
+        }
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            data: {}
+        },
+        methods: {
+            // 切换不同类型组件的数据
+            change: function(type){
+                if (type === 'img') {
+                    this.data = {
+                        type: 'img',
+                        url: '../data/image.png'
+                    }
+                }else if (type === 'video') {
+                    this.data = {
+                        type: 'video',
+                        url: '../data/动感英语10.rm'
+                    }
+                }else if (type === 'text') {
+                    this.data = {
+                        type: 'text',
+                        content: '这是一段纯文本'
+                    }
+                }
+            }
+        },
+        created: function(){
+            // 初始化时，默认设置图片组件的数据
+            this.change('img');
+        }
+    })
+    </script>
+    <!-- 函数化组件主要适用于两个场景：
+        1、程序化地在多个组件中选择一个；
+        2、在将 children,props,data 传递给子组件之前操作他们。 -->
+</body>
+
+</html>

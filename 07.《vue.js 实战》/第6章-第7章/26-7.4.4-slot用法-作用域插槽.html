@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>slot用法-作用域插槽</title>
+</head>
+<body>
+  <!-- 在子组件内使用特殊的 <slot> 元素就可以为这个子组件开启一个slot(插槽)，
+  在父组件模板里，插入子组件标签内的所有内容将替代子组件的<slot>标签及它的内容。 -->
+
+    <!-- 作用域插槽是一种特殊的 slot，使用一个可以复用的模板替换已渲染元素。 -->
+  <div id="app">
+    <child-component>
+      <template scope="props">
+        <p>来自父组件的内容</p>
+        <p>{{ props.msg }}</p>
+      </template>
+    </child-component>
+  </div>
+  <script type="text/javascript" src="../vue.js"></script>
+  <script>
+    Vue.component('child-component',{
+      template: '\
+      <div class="container">\
+        <slot msg="来自子组件的内容"></slot>\
+      </div>'
+    });
+
+    var app = new Vue({
+      el: '#app'
+    });
+  </script>
+</body>
+</html>

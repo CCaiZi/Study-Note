@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>非父子组件通信-向上级派发事件</title>
+</head>
+<body>
+  <!-- 需要在 Vue.js 1.x 的版本中运行 -->
+  <div id="app">
+    {{ message }}
+    <my-component></my-component>
+  </div>
+  <script type="text/javascript" src="../vue.js"></script>
+  <script>
+    Vue.component('my-component',{
+      template: '<button @click="handleDispath">派发事件</button>',
+      methods: {
+        handleDispath: function(){
+          this.$dispatch('on-message', '来自内部组件的数据');
+        }
+      }
+    });
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: ''
+      },
+      events: {
+        'on-message': function(msg){
+          this.message = msg;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

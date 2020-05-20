@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>作用域-slot</title>
+</head>
+<body>
+  <!-- message 就是一个 slot ，但是它绑定的是父组件的数据，
+    而不是组件 <child-component> 的数据。
+    父组件模板的内容是在父组件作用域内编译，
+    子组件模板的内容是在子组件作用域内编译。 -->
+
+    <!-- 示例 -->
+  <!-- <child-component>
+    {{ message }}
+  </child-component> -->
+
+
+
+  <div id="app">
+    <child-component v-show="showChild"></child-component>
+  </div>
+  <script type="text/javascript" src="../vue.js"></script>
+  <script>
+    Vue.component('child-component',{
+      template: '<div>子组件</div>'
+    });
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        showChild: true
+      }
+    });
+  </script>
+</body>
+</html>
