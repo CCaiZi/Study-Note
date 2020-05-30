@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>指令-自定义指令</title>
+</head>
+
+<body>
+   <!-- 指令(Directive) 是特殊的带有前缀 v- 的特性。指令的值限定为绑定表达式，
+   指令的职责就是当其表达式的值改变时，把某些特殊的行为应用到DOM上。 -->
+
+   <!-- Vue.js 用 Vue.directive(id, definition) 方法注册一个全局自定义指令，它接收两个参数：指令ID与定义对象。也可以使用组件的 directives 选项注册一个局部自定义指令。 -->
+
+   <!-- Vue.js 提供了几个钩子函数： -->
+   <!-- bind   只调用一次，在指令第一次绑定到元素上时调用。 -->
+   <!-- update  在bind之后立即以初始值为参数第一次调用，之后每当绑定值变化时调用，参数为新值与旧值。 -->
+   <!-- unbind  只调用一次，在指令从元素上解绑时调用。 -->
+
+   <script>
+     Vue.directive('my-directive', {
+      bind: function(){
+        // 准备工作
+        // 添加事件处理器或只需要运行一次的高耗任务
+      },
+      update: function(newValue, oldValue){
+        // 值更新时的工作
+        // 也会以初始值为参数调用一次
+      },
+      unbind: function(){
+        // 清理工作
+        // 删除 bind()添加的事件监听
+      }
+     })
+   </script>
+
+
+
+
+
+
+   <div id="example">
+     <span v-el:msg>hello</span>
+     {{aa}}
+   </div>
+    <script src="../vue.js"></script>
+    <script>
+    var exampleVM2 = new Vue({
+        el: '#example',
+        data: {
+            msg: ''
+            aa: this.$els.msg.textContent
+        }
+    })
+    </script>
+    <!-- 在切换 v-if 模块时，Vue.js 有一个局部编译/卸载过程，因为 v-if 中的模板可能包括数据绑定或子组件。 v-if 是真实的条件渲染，因为它会确保条件块在切换时合适的销毁与重建条件块内的事件监听器和子组件 -->
+
+    <!-- v-if 是惰性的---如果初始渲染时条件为假，则什么也不做，在条件第一次变为真时才开始局部编译(编译会被缓存起来)。 -->
+
+    <!-- 相比之下， v-show 简单得多---元素始终被编译并保留，只是简单的基于 CSS 切换。 -->
+
+    <!-- 一般来说， v-if 有更高的切换消耗，而 v-show 有更高的初始渲染消耗。因此，如果需要频繁的切换，则使用 v-show 较好；如果在运行时条件不大可能改变，则使用 v-if 较好。 -->
+</body>
+
+</html>

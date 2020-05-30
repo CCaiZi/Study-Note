@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>指令-v-show</title>
+</head>
+
+<body>
+   <!-- 指令(Directive) 是特殊的带有前缀 v- 的特性。指令的值限定为绑定表达式，
+   指令的职责就是当其表达式的值改变时，把某些特殊的行为应用到DOM上。 -->
+
+   <!-- v-show 指令是根据表达式的值来显示或者隐藏HTML元素。当 v-show 赋值为 false 时，
+   元素将被隐藏。查看 DOM 时，会发现元素上多了一个内联样式 style="display:none"。 -->
+
+   <input type="text" v-model="message" placeholder="edit me">
+   <div id="example">
+     <p v-show="greeting">Hello!</p>
+   </div>
+    <script src="../vue.js"></script>
+    <script>
+    var exampleVM2 = new Vue({
+        el: '#example',
+        data: {
+            greeting: false
+        }
+    })
+    </script>
+    <!-- 在切换 v-if 模块时，Vue.js 有一个局部编译/卸载过程，因为 v-if 中的模板可能包括数据绑定或子组件。 v-if 是真实的条件渲染，因为它会确保条件块在切换时合适的销毁与重建条件块内的事件监听器和子组件 -->
+
+    <!-- v-if 是惰性的---如果初始渲染时条件为假，则什么也不做，在条件第一次变为真时才开始局部编译(编译会被缓存起来)。 -->
+
+    <!-- 相比之下， v-show 简单得多---元素始终被编译并保留，只是简单的基于 CSS 切换。 -->
+
+    <!-- 一般来说， v-if 有更高的切换消耗，而 v-show 有更高的初始渲染消耗。因此，如果需要频繁的切换，则使用 v-show 较好；如果在运行时条件不大可能改变，则使用 v-if 较好。 -->
+</body>
+
+</html>

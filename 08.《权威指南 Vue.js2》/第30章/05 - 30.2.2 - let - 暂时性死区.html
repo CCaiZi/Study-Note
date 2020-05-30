@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>let - 暂时性死区</title>
+</head>
+
+<body>
+    <!-- 代码中任何一对花括号({})中的语句都属于一个快，其中定义的所有变量在代码块外都是不可见的，称之为块级作用域。 -->
+    <!-- 在ES5 之前的版本中均不存在块级作用域，只有全局作用域和函数作用域。因此带来很多问题，比如内层变量可能覆盖外层变量、用于计数的循环变量泄漏为全局变量等。 -->
+    <!-- 在此之前，往往要通过闭包等方式来模拟块级作用域，尤为烦琐。而 let 关键词可以实现。 -->
+
+<!-- let 的作用是声明变量，用法类似于 var 。 与 var 不同的是， let 声明的变量只在 let 命令所在的代码块内有效。 -->
+    <script>
+        // let 存在暂时性死区(temporal deadzone, 简称 TDZ),
+        // 指在当前代码块内，如果使用了 let 声明变量，则在该条语句之前，该变量不可用。
+        if(true){
+            //  TDZ 开始
+            tmp = 'ddfe';       // ReferenceError
+            console.log(tmp);   // ReferenceError
+
+            let tmp;    // TDZ 结束
+            console.log(tmp);   // undefined
+
+            tmp = 123;
+            console.log(tmp);   // 123
+        }
+    </script>
+</body>
+
+</html>

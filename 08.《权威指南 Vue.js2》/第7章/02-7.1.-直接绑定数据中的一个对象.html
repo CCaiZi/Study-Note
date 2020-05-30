@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>直接绑定数据中的一个对象</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+        }
+        .didi-orange{
+            background: orange;
+        }
+        .didi-green{
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 对于数据绑定，一个常见的需求是操作元素的class列表和它的内联样式。
+因为都是 attribute, 可以使用 v-bind 来处理它们；只需要计算出表达式最终的字符串。  -->
+    <!-- 但是，字符串拼接麻烦而且容易出错，因此，在 v-bind 用于 style 和 class 时，Vue.js 专门
+增强了它。表达式的结果类型除了字符串外，还可以是对象或数组。 -->
+    <!-- 注意： v-bind:class 指令可以与普通的class特性共存。 -->
+    <div id="example" v-bind:class="ddfe">
+    </div>
+    <script type="text/javascript" src="../vue.js"></script>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            ddfe: {
+                'didi-orange': false,
+                'didi-green': true
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

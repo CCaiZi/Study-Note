@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>指令-v-if</title>
+</head>
+
+<body>
+   <!-- 指令(Directive) 是特殊的带有前缀 v- 的特性。指令的值限定为绑定表达式，
+   指令的职责就是当其表达式的值改变时，把某些特殊的行为应用到DOM上。 -->
+
+   <!-- v-if 指令可以完全根据表达式的值在DOM中生成或移除一个元素。 -->
+
+   <div id="example">
+     <p v-if="greeting">Hello</p>
+     <button @click="handleClick">点击 创建/删除</button>
+   </div>
+    <script src="../vue.js"></script>
+    <script>
+    var exampleVM2 = new Vue({
+        el: '#example',
+        data: {
+            greeting: true
+        },
+        methods: {
+          handleClick: function(){
+            this.greeting = !this.greeting
+          }
+        }
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>表单控件绑定-checkbox</title>
+</head>
+
+<body>
+
+  <div id="example">
+        <input type="checkbox" id="flash" value="flash" v-model="bizLines">
+        <label for="flash">快车</label>
+        <input type="checkbox" id="premium" value="premium" v-model="bizLines">
+        <label for="flash">专车</label>
+        <input type="checkbox" id="bus" value="bus" v-model="bizLines">
+        <label for="flash">巴士</label>
+        <br>
+        <span>
+            Checked lines: {{bizLines | json}}
+        </span>
+    </div>
+    <script type="text/javascript" src="../vue.js"></script>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            bizLines: []
+        }
+    })
+    </script>
+</body>
+
+</html>

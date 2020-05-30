@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性</title>
+</head>
+
+<body>
+    <!-- 计算属性就是当其依赖属性的值发生变化时，这个属性的值就会自动更新，与之相关的DOM部分也会同步自动更新。 -->
+
+  <div id="example">
+        <input type="text" v-model="didi" />
+        <input type="text" v-model="family" />
+        <br>
+        didi={{didi}}, family={{family}}, didiFamily={{didiFamily}}
+    </div>
+    <script type="text/javascript" src="../vue.js"></script>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            didi: 'didi',
+            family: 'family'
+        },
+        computed: {
+            // 一个计算属性的 getter
+            didiFamily: function(){
+                // 'this' 指向 vm 实例
+                return this.didi + this.family
+            }
+        }
+    })
+    </script>
+    <!-- 当 vm.didi 和 vm.family 的值发生变化时，vm.didiFamily 的值会自动更新，并且会自动同步更新 DOM 部分。 -->
+</body>
+
+</html>
