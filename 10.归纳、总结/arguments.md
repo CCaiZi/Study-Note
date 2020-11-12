@@ -1,4 +1,6 @@
-##  在调用函数时，浏览器每次都会传递进两个隐含的参数:
+# Arguments
+
+## 在调用函数时，浏览器每次都会传递进两个隐含的参数
 
 1. 函数的上下文对象 this
 
@@ -14,10 +16,9 @@
 
     + 它里面有一个属性叫 callee,这个属性对应一个函数对象，就是当前正在指向的函数的对象
 
-
 示例如下:
 
-```
+```bash
 function fn(){
   console.log(this);            // window
   console.log(arguments);       // ('hello','world')
