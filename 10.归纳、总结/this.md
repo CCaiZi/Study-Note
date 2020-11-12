@@ -1,4 +1,4 @@
-###  参考 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this)中资料整理
+# 参考 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this)中资料整理
 
 ---
 
@@ -10,7 +10,7 @@
 
 示例(一):
 
-```
+```bash
 const test = {
   func: function() {
     return this;
@@ -28,7 +28,7 @@ console.log(test.func());   // {prop: 42, func: ƒ}
 
 示例(二)：
 
-```
+```bash
 const test = {
   func: function() {
     return this;
@@ -40,10 +40,12 @@ var test2 = test.func;
 console.log(test2());   // Window {window: Window, self: Window, document: document, name: "", location: Location, …}
 
 ```
+
 分析：
 
 上面的代码其实可以这么写:
-```
+
+```bash
 const test = {
         func: function() {
             return this;
@@ -53,15 +55,16 @@ const test = {
     var test2 = function() {
         return this;
     }
-    
+
     console.log(test2());
 ```
+
 这次 `test2()` 调用时，是在全局执行上下文中直接调用的，没有引用对象，因此， `this` 的值被设置为全局对象；但是，如果实在严格模式下，此时的 `this` 为 `undefined` ；如下。
 
 ---
 示例(三)：
 
-```
+```bash
 const test = {
     func: function() {
         "use strict";   // 严格模式
@@ -77,7 +80,4 @@ console.log(test2());   // undefined
 
 ---
 
-####  总结：当函数被调用时，this 的值是当前执行上下文（global、function 或 eval）的一个属性，在非严格模式下，总是指向一个对象，在严格模式下可以是任意值。
-
----
-
+**总结：当函数被调用时，this 的值是当前执行上下文（`global、function 或 eval`）的一个属性，在非严格模式下，总是指向一个对象，在严格模式下可以是任意值。**
