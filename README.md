@@ -14,6 +14,8 @@
 
 * [this 关键字 - JavaScript | MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this)
 
+* [词法环境 - ES5 规范](https://juejin.im/post/6858052418862235656)
+
 ##### 视频资料
 
 * [B站 - js执行上下文与作用域(49分钟26秒)](https://www.bilibili.com/video/BV1wD4y1D7Pp)
