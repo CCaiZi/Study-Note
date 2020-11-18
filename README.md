@@ -6,9 +6,15 @@
 
 #### 执行上下文
 
-##### 文档资料
+##### 主要文档资料
 
 * [[译] 理解 JavaScript 中的执行上下文和执行栈](https://juejin.im/post/6844903682283143181)
+
+* [破解前端面试（80% 应聘者不及格系列）：从闭包说起](https://juejin.im/post/6844903474212143117#heading-5)
+
+* [JavaScript深入之执行上下文栈](https://github.com/mqyqingfeng/Blog/issues/4)
+
+##### 参考文档资料
 
 * [深入理解JS：执行上下文中的this（一）](https://www.cnblogs.com/forcheng/p/12960972.html)
 
