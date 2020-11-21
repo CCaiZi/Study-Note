@@ -14,6 +14,8 @@
 
 * [JavaScript深入之执行上下文栈](https://github.com/mqyqingfeng/Blog/issues/4)
 
+* [深入理解 JavaScript 原型](https://mp.weixin.qq.com/s/1UDILezroK5wrcK-Z5bHOg)
+
 ##### 参考文档资料
 
 * [深入理解JS：执行上下文中的this（一）](https://www.cnblogs.com/forcheng/p/12960972.html)
