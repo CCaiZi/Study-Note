@@ -36,3 +36,4 @@
 
 * [【第2114期】浏览器环境下的JavaScript Event Loop](https://mp.weixin.qq.com/s/7k4skVdCIhTsTdEFmXyYLg)
 
+* [【THE LAST TIME】彻底吃透 JavaScript 执行机制](https://mp.weixin.qq.com/s/nQgsEQorv00fr4XqU764bA)
