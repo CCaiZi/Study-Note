@@ -29,3 +29,10 @@
 * [B站 - js执行上下文与作用域(49分钟26秒)](https://www.bilibili.com/video/BV1wD4y1D7Pp)
 
 * [B站 - JavaScript高级视频教程（共48集）(17小时31分钟44秒) 可以先看讲执行上下文的几个视频](https://www.bilibili.com/video/BV1tt41147MM)
+
+#### 浏览器环境下的JavaScript 执行机制
+
+##### 参考资料
+
+* [【第2114期】浏览器环境下的JavaScript Event Loop](https://mp.weixin.qq.com/s/7k4skVdCIhTsTdEFmXyYLg)
+
