@@ -37,3 +37,9 @@
 * [【第2114期】浏览器环境下的JavaScript Event Loop](https://mp.weixin.qq.com/s/7k4skVdCIhTsTdEFmXyYLg)
 
 * [【THE LAST TIME】彻底吃透 JavaScript 执行机制](https://mp.weixin.qq.com/s/nQgsEQorv00fr4XqU764bA)
+
+#### 面向对象编程
+
+##### 参考资料
+
+* [什么是对象，为什么要面向对象，怎么才能面向对象？](https://www.cnblogs.com/seesea125/archive/2012/04/03/2431176.html)
