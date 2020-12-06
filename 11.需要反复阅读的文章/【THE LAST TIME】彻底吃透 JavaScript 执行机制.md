@@ -72,3 +72,117 @@ console.log(1);
 * 循环如上
 
 上述动作不断循环，就是我们所说的事件循环(`Event Loop`)。
+
+##### 小试牛刀
+
+```js
+ajax({
+    url:www.Nealyang.com,
+    data:prams,
+    success:() => {
+        console.log('请求成功!');
+    },
+    error:()=>{
+        console.log('请求失败~');
+    }
+})
+console.log('这是一个同步任务');
+```
+
+* `ajax` 请求首先进入到 `Event Table` ，分别注册了`onError`和`onSuccess`回调函数。
+
+* 主线程执行同步任务：`console.log('这是一个同步任务')`;
+
+* 主线程任务执行完毕，看`Event Queue`是否有待执行的 `task`,这里是不断地检查，只要主线程的`task queue`没有任务执行了，主线程就一直在这等着
+
+* `ajax` 执行完毕，将回调函数`push` 到`Event Queue`。（步骤 3、4 没有先后顺序而言）
+
+* 主线程“终于”等到了`Event Queue`里有 `task`可以执行了，执行对应的回调任务。
+
+* 如此往复。
+
+#### 宏任务(MacroTask)、微任务(MicroTask)
+
+`JavaScript` 的任务不仅仅分为同步任务和异步任务，同时从另一个维度，也分为了宏任务(`MacroTask`)和微任务(`MicroTask`)。
+
+先说说 `MacroTask`，所有的同步任务代码都是`MacroTask`（这么说其实不是很严谨，下面解释）,`setTimeout`、`setInterval`、`I/O`、`UI Rendering` 等都是宏任务。
+
+`MicroTask`，为什么说上述不严谨我却还是强调所有的同步任务都是 `MacroTask` 呢，因为我们仅仅需要记住几个 `MicroTask` 即可，排除法！别的都是 `MacroTask`。`MicroTask` 包括：`Process.nextTick`、`Promise.then` `catch` `finally`(注意我不是说 `Promise`)、`MutationObserver`。
+
+### 浏览器环境下的 Event Loop
+
+##### setTimeout、setInterval
+
+###### setTimeout
+
+`setTimeout` 就是等多长时间来执行这个回调函数。`setInterval` 就是每隔多长时间来执行这个回调。
+
+```js
+let startTime = new Date().getTime();
+
+setTimeout(()=>{
+  console.log(new Date().getTime()-startTime);
+},1000);
+```
+
+如上代码，顾名思义，就是等 1s 后再去执行 `console`。放到浏览器下去执行，OK，如你所愿就是如此。
+
+但是这次我们在探讨 JavaScript 的执行机制，所以这里我们得探讨下如下代码：
+
+```js
+let startTime = new Date().getTime();
+
+console.log({startTime})
+
+setTimeout(()=>{
+  console.log(`开始执行回调的相隔时差：${new Date().getTime()-startTime}`);
+},1000);
+
+for(let i = 0;i<40000;i++){
+  console.log(1)
+}
+```
+
+![](https://mmbiz.qpic.cn/mmbiz_png/udZl15qqib0NPJYm99fCKh9SUq52nkiaF00ciceJwVnCrQWMG03EE7L4XPZ2be3BAyDeQOBIGE4PibxWiaEicuCsxNAg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+如上运行，setTimeout 的回调函数等到 4.7s 以后才执行!而这时候，我们把 setTimeout 的 1s 延迟给删了
+
+```js
+let startTime = new Date().getTime();
+
+console.log({startTime})
+
+setTimeout(()=>{
+  console.log(`开始执行回调的相隔时差：${new Date().getTime()-startTime}`);
+},0);
+
+for(let i = 0;i<40000;i++){
+  console.log(1)
+}
+```
+
+![](https://mmbiz.qpic.cn/mmbiz_png/udZl15qqib0NPJYm99fCKh9SUq52nkiaF05569ndjl8lmrACkOrXfAVbbSjfmWNbOAx9hrLoMOh4wLC18Wjln8Og/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+结果依然是等到 4.7s 后才执行setTimeout 的回调。貌似 setTimeout 后面的延迟并没有产生任何效果！
+
+其实这么说，又应该回到上面的那张 JavaScript 执行的流程图了。
+
+![](https://mmbiz.qpic.cn/mmbiz_png/udZl15qqib0NPJYm99fCKh9SUq52nkiaF0VDaGDMchSd8wZvSANPTPLoJ2wJ3v3NNiaXfZKHpJvicQ4EPSg5DCI7HA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+`setTimeout`这里就是简单的异步，我们通过上面的图来分析上述代码的一步一步执行情况
+
+* 首先 `JavaScript` 自上而下执行代码
+
+* 遇到遇到赋值语句、以及第一个 `console.log({startTime})` 分别作为一个 `task`，压入到立即执行栈中被执行。
+
+* 遇到 `setTImeout` 是一个异步任务，则注册相应回调函数。（异步函数告诉你，js 你先别急，等 1s 后我再将回调函数：`console.log(xxx)`放到 `Task Queue` 中）
+
+* OK，这时候 `JavaScript` 则接着往下走，遇到了 40000 个 `for` 循环的 `task`，没办法，1s 后都还没执行完。其实这个时候上述的回调已经在`Task Queue` 中了。
+
+* 等所有的立即执行栈中的 `task` 都执行完了，在回头看 `Task Queue` 中的任务，发现异步的回调 `task` 已经在里面了，所以接着执行。
+
+###### setInterval
+
+说完了 `setTimeout`，当然不能错过他的孪生兄弟：`setInterval`。对于执行顺序来说，`setInterval`会每隔指定的时间将注册的函数置入 `Task Queue`，如果前面的任务耗时太久，那么同样需要等待。
+
+这里需要说的是，对于 `setInterval(fn,ms)` 来说，我们制定没 `xx ms`执行一次 `fn`，其实是没 `xx ms`，会有一个`fn` 进入到 `Task Queue` 中。一旦 `setInterval` 的回调函数`fn`执行时间超过了`xx ms`，那么就完全看不出来有时间间隔了。 仔细回味回味，是不是那么回事？
