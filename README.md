@@ -38,6 +38,10 @@
 
 * [【THE LAST TIME】彻底吃透 JavaScript 执行机制](https://mp.weixin.qq.com/s/nQgsEQorv00fr4XqU764bA)
 
+#### 结构化程序设计
+##### 参考资料
+
+* [结构化程序设计?](https://www.cnblogs.com/mrchige/p/5921204.html#top)
 #### 面向对象编程
 
 ##### 参考资料
