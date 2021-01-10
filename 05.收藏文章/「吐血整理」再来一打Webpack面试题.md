@@ -372,7 +372,7 @@ https://www.webpackjs.com/guides/build-performance
 (Easy peezy right)
 
 14.是否写过Loader？简单描述一下编写loader的思路？
-Loader 支持链式调用，所以开发上需要严格遵循“单一职责”，每个 Loader 只负责自己需要负责的事情。
+Loader 支持链式调用，所以开发上需要严格遵循"单一职责"，每个 Loader 只负责自己需要负责的事情。
 
 Loader的API 可以去官网查阅
 
