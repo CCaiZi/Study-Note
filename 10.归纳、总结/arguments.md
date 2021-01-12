@@ -24,7 +24,7 @@ function fn(){
   console.log(arguments);       // ('hello','world')
   console.log(arguments instanceof Array);    // false
 console.log(arguments.callee);  
-      // ƒ fn() {
+      // ƒ fn(){
       //            console.log(this);
       //            console.log(arguments);
       //            console.log(arguments instanceof Array);

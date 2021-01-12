@@ -7,7 +7,7 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
 	(global.Vue = factory());
-}(this, (function () { 'use strict';
+}(this, (function (){ 'use strict';
 
 /*  */
 
@@ -326,7 +326,7 @@ function looseIndexOf (arr, val) {
  */
 function once (fn) {
   var called = false;
-  return function () {
+  return function (){
     if (!called) {
       called = true;
       fn.apply(this, arguments);
@@ -511,7 +511,7 @@ if (inBrowser) {
   try {
     var opts = {};
     Object.defineProperty(opts, 'passive', ({
-      get: function get () {
+      get: function get (){
         /* istanbul ignore next */
         supportsPassive = true;
       }
@@ -523,7 +523,7 @@ if (inBrowser) {
 // this needs to be lazy-evaled because vue may be required before
 // vue-server-renderer can set VUE_ENV
 var _isServer;
-var isServerRendering = function () {
+var isServerRendering = function (){
   if (_isServer === undefined) {
     /* istanbul ignore if */
     if (!inBrowser && !inWeex && typeof global !== 'undefined') {
@@ -556,8 +556,8 @@ if (typeof Set !== 'undefined' && isNative(Set)) {
   _Set = Set;
 } else {
   // a non-standard Set polyfill that only works with primitive keys.
-  _Set = (function () {
-    function Set () {
+  _Set = (function (){
+    function Set (){
       this.set = Object.create(null);
     }
     Set.prototype.has = function has (key) {
@@ -566,7 +566,7 @@ if (typeof Set !== 'undefined' && isNative(Set)) {
     Set.prototype.add = function add (key) {
       this.set[key] = true;
     };
-    Set.prototype.clear = function clear () {
+    Set.prototype.clear = function clear (){
       this.set = Object.create(null);
     };
 
@@ -677,7 +677,7 @@ var uid = 0;
  * A dep is an observable that can have multiple
  * directives subscribing to it.
  */
-var Dep = function Dep () {
+var Dep = function Dep (){
   this.id = uid++;
   this.subs = [];
 };
@@ -690,13 +690,13 @@ Dep.prototype.removeSub = function removeSub (sub) {
   remove(this.subs, sub);
 };
 
-Dep.prototype.depend = function depend () {
+Dep.prototype.depend = function depend (){
   if (Dep.target) {
     Dep.target.addDep(this);
   }
 };
 
-Dep.prototype.notify = function notify () {
+Dep.prototype.notify = function notify (){
   // stabilize the subscriber list first
   var subs = this.subs.slice();
   for (var i = 0, l = subs.length; i < l; i++) {
@@ -715,7 +715,7 @@ function pushTarget (_target) {
   Dep.target = _target;
 }
 
-function popTarget () {
+function popTarget (){
   Dep.target = targetStack.pop();
 }
 
@@ -760,7 +760,7 @@ var prototypeAccessors = { child: { configurable: true } };
 
 // DEPRECATED: alias for componentInstance for backwards compat.
 /* istanbul ignore next */
-prototypeAccessors.child.get = function () {
+prototypeAccessors.child.get = function (){
   return this.componentInstance
 };
 
@@ -829,7 +829,7 @@ var methodsToPatch = [
 methodsToPatch.forEach(function (method) {
   // cache original method
   var original = arrayProto[method];
-  def(arrayMethods, method, function mutator () {
+  def(arrayMethods, method, function mutator (){
     var args = [], len = arguments.length;
     while ( len-- ) args[ len ] = arguments[ len ];
 
@@ -988,7 +988,7 @@ function defineReactive (
   Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,
-    get: function reactiveGetter () {
+    get: function reactiveGetter (){
       var value = getter ? getter.call(obj) : val;
       if (Dep.target) {
         dep.depend();
@@ -1169,14 +1169,14 @@ function mergeDataOrFn (
     // merged result of both functions... no need to
     // check if parentVal is a function here because
     // it has to be a function to pass previous merges.
-    return function mergedDataFn () {
+    return function mergedDataFn (){
       return mergeData(
         typeof childVal === 'function' ? childVal.call(this, this) : childVal,
         typeof parentVal === 'function' ? parentVal.call(this, this) : parentVal
       )
     }
   } else {
-    return function mergedInstanceDataFn () {
+    return function mergedInstanceDataFn (){
       // instance merge
       var instanceData = typeof childVal === 'function'
         ? childVal.call(vm, vm)
@@ -1752,7 +1752,7 @@ function logError (err, vm, info) {
 var callbacks = [];
 var pending = false;
 
-function flushCallbacks () {
+function flushCallbacks (){
   pending = false;
   var copies = callbacks.slice(0);
   callbacks.length = 0;
@@ -1779,7 +1779,7 @@ var useMacroTask = false;
 // events triggered in the same loop is by using MessageChannel.
 /* istanbul ignore if */
 if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
-  macroTimerFunc = function () {
+  macroTimerFunc = function (){
     setImmediate(flushCallbacks);
   };
 } else if (typeof MessageChannel !== 'undefined' && (
@@ -1790,12 +1790,12 @@ if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
   var channel = new MessageChannel();
   var port = channel.port2;
   channel.port1.onmessage = flushCallbacks;
-  macroTimerFunc = function () {
+  macroTimerFunc = function (){
     port.postMessage(1);
   };
 } else {
   /* istanbul ignore next */
-  macroTimerFunc = function () {
+  macroTimerFunc = function (){
     setTimeout(flushCallbacks, 0);
   };
 }
@@ -1804,7 +1804,7 @@ if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
 /* istanbul ignore next, $flow-disable-line */
 if (typeof Promise !== 'undefined' && isNative(Promise)) {
   var p = Promise.resolve();
-  microTimerFunc = function () {
+  microTimerFunc = function (){
     p.then(flushCallbacks);
     // in problematic UIWebViews, Promise.then doesn't completely break, but
     // it can get stuck in a weird state where callbacks are pushed into the
@@ -1823,7 +1823,7 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
  * the changes are queued using a (macro) task instead of a microtask.
  */
 function withMacroTask (fn) {
-  return fn._withTask || (fn._withTask = function () {
+  return fn._withTask || (fn._withTask = function (){
     useMacroTask = true;
     var res = fn.apply(null, arguments);
     useMacroTask = false;
@@ -1833,7 +1833,7 @@ function withMacroTask (fn) {
 
 function nextTick (cb, ctx) {
   var _resolve;
-  callbacks.push(function () {
+  callbacks.push(function (){
     if (cb) {
       try {
         cb.call(ctx);
@@ -2015,7 +2015,7 @@ var normalizeEvent = cached(function (name) {
 });
 
 function createFnInvoker (fns) {
-  function invoker () {
+  function invoker (){
     var arguments$1 = arguments;
 
     var fns = invoker.fns;
@@ -2078,7 +2078,7 @@ function mergeVNodeHook (def, hookKey, hook) {
   var invoker;
   var oldHook = def[hookKey];
 
-  function wrappedHook () {
+  function wrappedHook (){
     hook.apply(this, arguments);
     // important: remove merged hook to ensure it's called only once
     // and prevent memory leak
@@ -2310,7 +2310,7 @@ function resolveAsyncComponent (
     var contexts = factory.contexts = [context];
     var sync = true;
 
-    var forceRender = function () {
+    var forceRender = function (){
       for (var i = 0, l = contexts.length; i < l; i++) {
         contexts[i].$forceUpdate();
       }
@@ -2357,7 +2357,7 @@ function resolveAsyncComponent (
           if (res.delay === 0) {
             factory.loading = true;
           } else {
-            setTimeout(function () {
+            setTimeout(function (){
               if (isUndef(factory.resolved) && isUndef(factory.error)) {
                 factory.loading = true;
                 forceRender();
@@ -2367,7 +2367,7 @@ function resolveAsyncComponent (
         }
 
         if (isDef(res.timeout)) {
-          setTimeout(function () {
+          setTimeout(function (){
             if (isUndef(factory.resolved)) {
               reject(
                 "timeout (" + (res.timeout) + "ms)"
@@ -2466,7 +2466,7 @@ function eventsMixin (Vue) {
 
   Vue.prototype.$once = function (event, fn) {
     var vm = this;
-    function on () {
+    function on (){
       vm.$off(event, on);
       fn.apply(vm, arguments);
     }
@@ -2685,14 +2685,14 @@ function lifecycleMixin (Vue) {
     // updated in a parent's updated hook.
   };
 
-  Vue.prototype.$forceUpdate = function () {
+  Vue.prototype.$forceUpdate = function (){
     var vm = this;
     if (vm._watcher) {
       vm._watcher.update();
     }
   };
 
-  Vue.prototype.$destroy = function () {
+  Vue.prototype.$destroy = function (){
     var vm = this;
     if (vm._isBeingDestroyed) {
       return
@@ -2767,7 +2767,7 @@ function mountComponent (
   var updateComponent;
   /* istanbul ignore if */
   if ("development" !== 'production' && config.performance && mark) {
-    updateComponent = function () {
+    updateComponent = function (){
       var name = vm._name;
       var id = vm._uid;
       var startTag = "vue-perf-start:" + id;
@@ -2784,7 +2784,7 @@ function mountComponent (
       measure(("vue " + name + " patch"), startTag, endTag);
     };
   } else {
-    updateComponent = function () {
+    updateComponent = function (){
       vm._update(vm._render(), hydrating);
     };
   }
@@ -2946,7 +2946,7 @@ var index = 0;
 /**
  * Reset the scheduler's state.
  */
-function resetSchedulerState () {
+function resetSchedulerState (){
   index = queue.length = activatedChildren.length = 0;
   has = {};
   {
@@ -2958,7 +2958,7 @@ function resetSchedulerState () {
 /**
  * Flush both queues and run the watchers.
  */
-function flushSchedulerQueue () {
+function flushSchedulerQueue (){
   flushing = true;
   var watcher, id;
 
@@ -3115,7 +3115,7 @@ var Watcher = function Watcher (
   } else {
     this.getter = parsePath(expOrFn);
     if (!this.getter) {
-      this.getter = function () {};
+      this.getter = function (){};
       "development" !== 'production' && warn(
         "Failed watching path: \"" + expOrFn + "\" " +
         'Watcher only accepts simple dot-delimited paths. ' +
@@ -3132,7 +3132,7 @@ var Watcher = function Watcher (
 /**
  * Evaluate the getter, and re-collect dependencies.
  */
-Watcher.prototype.get = function get () {
+Watcher.prototype.get = function get (){
   pushTarget(this);
   var value;
   var vm = this.vm;
@@ -3173,7 +3173,7 @@ Watcher.prototype.addDep = function addDep (dep) {
 /**
  * Clean up for dependency collection.
  */
-Watcher.prototype.cleanupDeps = function cleanupDeps () {
+Watcher.prototype.cleanupDeps = function cleanupDeps (){
     var this$1 = this;
 
   var i = this.deps.length;
@@ -3197,7 +3197,7 @@ Watcher.prototype.cleanupDeps = function cleanupDeps () {
  * Subscriber interface.
  * Will be called when a dependency changes.
  */
-Watcher.prototype.update = function update () {
+Watcher.prototype.update = function update (){
   /* istanbul ignore else */
   if (this.lazy) {
     this.dirty = true;
@@ -3212,7 +3212,7 @@ Watcher.prototype.update = function update () {
  * Scheduler job interface.
  * Will be called by the scheduler.
  */
-Watcher.prototype.run = function run () {
+Watcher.prototype.run = function run (){
   if (this.active) {
     var value = this.get();
     if (
@@ -3243,7 +3243,7 @@ Watcher.prototype.run = function run () {
  * Evaluate the value of the watcher.
  * This only gets called for lazy watchers.
  */
-Watcher.prototype.evaluate = function evaluate () {
+Watcher.prototype.evaluate = function evaluate (){
   this.value = this.get();
   this.dirty = false;
 };
@@ -3251,7 +3251,7 @@ Watcher.prototype.evaluate = function evaluate () {
 /**
  * Depend on all deps collected by this watcher.
  */
-Watcher.prototype.depend = function depend () {
+Watcher.prototype.depend = function depend (){
     var this$1 = this;
 
   var i = this.deps.length;
@@ -3263,7 +3263,7 @@ Watcher.prototype.depend = function depend () {
 /**
  * Remove self from all dependencies' subscriber list.
  */
-Watcher.prototype.teardown = function teardown () {
+Watcher.prototype.teardown = function teardown (){
     var this$1 = this;
 
   if (this.active) {
@@ -3291,7 +3291,7 @@ var sharedPropertyDefinition = {
 };
 
 function proxy (target, sourceKey, key) {
-  sharedPropertyDefinition.get = function proxyGetter () {
+  sharedPropertyDefinition.get = function proxyGetter (){
     return this[sourceKey][key]
   };
   sharedPropertyDefinition.set = function proxySetter (val) {
@@ -3340,7 +3340,7 @@ function initProps (vm, propsOptions) {
           vm
         );
       }
-      defineReactive(props, key, value, function () {
+      defineReactive(props, key, value, function (){
         if (vm.$parent && !isUpdatingChildComponent) {
           warn(
             "Avoid mutating a prop directly since the value will be " +
@@ -3485,7 +3485,7 @@ function defineComputed (
   }
   if ("development" !== 'production' &&
       sharedPropertyDefinition.set === noop) {
-    sharedPropertyDefinition.set = function () {
+    sharedPropertyDefinition.set = function (){
       warn(
         ("Computed property \"" + key + "\" was assigned to but it has no setter."),
         this
@@ -3496,7 +3496,7 @@ function defineComputed (
 }
 
 function createComputedGetter (key) {
-  return function computedGetter () {
+  return function computedGetter (){
     var watcher = this._computedWatchers && this._computedWatchers[key];
     if (watcher) {
       if (watcher.dirty) {
@@ -3572,9 +3572,9 @@ function stateMixin (Vue) {
   // when using Object.defineProperty, so we have to procedurally build up
   // the object here.
   var dataDef = {};
-  dataDef.get = function () { return this._data };
+  dataDef.get = function (){ return this._data };
   var propsDef = {};
-  propsDef.get = function () { return this._props };
+  propsDef.get = function (){ return this._props };
   {
     dataDef.set = function (newData) {
       warn(
@@ -3583,7 +3583,7 @@ function stateMixin (Vue) {
         this
       );
     };
-    propsDef.set = function () {
+    propsDef.set = function (){
       warn("$props is readonly.", this);
     };
   }
@@ -3608,7 +3608,7 @@ function stateMixin (Vue) {
     if (options.immediate) {
       cb.call(vm, watcher.value);
     }
-    return function unwatchFn () {
+    return function unwatchFn (){
       watcher.teardown();
     }
   };
@@ -3632,7 +3632,7 @@ function initInjections (vm) {
     Object.keys(result).forEach(function (key) {
       /* istanbul ignore else */
       {
-        defineReactive(vm, key, result[key], function () {
+        defineReactive(vm, key, result[key], function (){
           warn(
             "Avoid mutating an injected value directly since the changes will be " +
             "overwritten whenever the provided component re-renders. " +
@@ -3997,7 +3997,7 @@ function FunctionalRenderContext (
   this.parent = parent;
   this.listeners = data.on || emptyObject;
   this.injections = resolveInject(options.inject, parent);
-  this.slots = function () { return resolveSlots(children, parent); };
+  this.slots = function (){ return resolveSlots(children, parent); };
 
   // support for compiled functional template
   if (isCompiled) {
@@ -4491,10 +4491,10 @@ function initRender (vm) {
 
   /* istanbul ignore else */
   {
-    defineReactive(vm, '$attrs', parentData && parentData.attrs || emptyObject, function () {
+    defineReactive(vm, '$attrs', parentData && parentData.attrs || emptyObject, function (){
       !isUpdatingChildComponent && warn("$attrs is readonly.", vm);
     }, true);
-    defineReactive(vm, '$listeners', options._parentListeners || emptyObject, function () {
+    defineReactive(vm, '$listeners', options._parentListeners || emptyObject, function (){
       !isUpdatingChildComponent && warn("$listeners is readonly.", vm);
     }, true);
   }
@@ -4508,7 +4508,7 @@ function renderMixin (Vue) {
     return nextTick(fn, this)
   };
 
-  Vue.prototype._render = function () {
+  Vue.prototype._render = function (){
     var vm = this;
     var ref = vm.$options;
     var render = ref.render;
@@ -4936,12 +4936,12 @@ var KeepAlive = {
     max: [String, Number]
   },
 
-  created: function created () {
+  created: function created (){
     this.cache = Object.create(null);
     this.keys = [];
   },
 
-  destroyed: function destroyed () {
+  destroyed: function destroyed (){
     var this$1 = this;
 
     for (var key in this$1.cache) {
@@ -4949,7 +4949,7 @@ var KeepAlive = {
     }
   },
 
-  mounted: function mounted () {
+  mounted: function mounted (){
     var this$1 = this;
 
     this.$watch('include', function (val) {
@@ -4960,7 +4960,7 @@ var KeepAlive = {
     });
   },
 
-  render: function render () {
+  render: function render (){
     var slot = this.$slots.default;
     var vnode = getFirstComponentChild(slot);
     var componentOptions = vnode && vnode.componentOptions;
@@ -5016,9 +5016,9 @@ var builtInComponents = {
 function initGlobalAPI (Vue) {
   // config
   var configDef = {};
-  configDef.get = function () { return config; };
+  configDef.get = function (){ return config; };
   {
-    configDef.set = function () {
+    configDef.set = function (){
       warn(
         'Do not replace the Vue.config object, set individual fields instead.'
       );
@@ -5064,7 +5064,7 @@ Object.defineProperty(Vue.prototype, '$isServer', {
 });
 
 Object.defineProperty(Vue.prototype, '$ssrContext', {
-  get: function get () {
+  get: function get (){
     /* istanbul ignore next */
     return this.$vnode && this.$vnode.ssrContext
   }
@@ -5485,7 +5485,7 @@ function createPatchFunction (backend) {
   }
 
   function createRmCb (childElm, listeners) {
-    function remove () {
+    function remove (){
       if (--remove.listeners === 0) {
         removeNode(childElm);
       }
@@ -6214,7 +6214,7 @@ function _update (oldVnode, vnode) {
   }
 
   if (dirsWithInsert.length) {
-    var callInsert = function () {
+    var callInsert = function (){
       for (var i = 0; i < dirsWithInsert.length; i++) {
         callHook$1(dirsWithInsert[i], 'inserted', vnode, oldVnode);
       }
@@ -6227,7 +6227,7 @@ function _update (oldVnode, vnode) {
   }
 
   if (dirsWithPostpatch.length) {
-    mergeVNodeHook(vnode, 'postpatch', function () {
+    mergeVNodeHook(vnode, 'postpatch', function (){
       for (var i = 0; i < dirsWithPostpatch.length; i++) {
         callHook$1(dirsWithPostpatch[i], 'componentUpdated', vnode, oldVnode);
       }
@@ -6501,7 +6501,7 @@ function parseFilters (exp) {
     pushFilter();
   }
 
-  function pushFilter () {
+  function pushFilter (){
     (filters || (filters = [])).push(exp.slice(lastFilterIndex, i).trim());
     lastFilterIndex = i + 1;
   }
@@ -6802,11 +6802,11 @@ function parseModel (val) {
   }
 }
 
-function next () {
+function next (){
   return str.charCodeAt(++index$1)
 }
 
-function eof () {
+function eof (){
   return index$1 >= len
 }
 
@@ -7041,7 +7041,7 @@ var target$1;
 
 function createOnceHandler (handler, event, capture) {
   var _target = target$1; // save current target element in closure
-  return function onceHandler () {
+  return function onceHandler (){
     var res = handler.apply(null, arguments);
     if (res !== null) {
       remove$2(event, onceHandler, capture, _target);
@@ -7477,7 +7477,7 @@ var raf = inBrowser
   : /* istanbul ignore next */ function (fn) { return fn(); };
 
 function nextFrame (fn) {
-  raf(function () {
+  raf(function (){
     raf(fn);
   });
 }
@@ -7509,7 +7509,7 @@ function whenTransitionEnds (
   if (!type) { return cb() }
   var event = type === TRANSITION ? transitionEndEvent : animationEndEvent;
   var ended = 0;
-  var end = function () {
+  var end = function (){
     el.removeEventListener(event, onEnd);
     cb();
   };
@@ -7520,7 +7520,7 @@ function whenTransitionEnds (
       }
     }
   };
-  setTimeout(function () {
+  setTimeout(function (){
     if (ended < propCount) {
       end();
     }
@@ -7686,7 +7686,7 @@ function enter (vnode, toggleDisplay) {
   var expectsCSS = css !== false && !isIE9;
   var userWantsControl = getHookArgumentsLength(enterHook);
 
-  var cb = el._enterCb = once(function () {
+  var cb = el._enterCb = once(function (){
     if (expectsCSS) {
       removeTransitionClass(el, toClass);
       removeTransitionClass(el, activeClass);
@@ -7704,7 +7704,7 @@ function enter (vnode, toggleDisplay) {
 
   if (!vnode.data.show) {
     // remove pending leave element on enter by injecting an insert hook
-    mergeVNodeHook(vnode, 'insert', function () {
+    mergeVNodeHook(vnode, 'insert', function (){
       var parent = el.parentNode;
       var pendingNode = parent && parent._pending && parent._pending[vnode.key];
       if (pendingNode &&
@@ -7722,7 +7722,7 @@ function enter (vnode, toggleDisplay) {
   if (expectsCSS) {
     addTransitionClass(el, startClass);
     addTransitionClass(el, activeClass);
-    nextFrame(function () {
+    nextFrame(function (){
       removeTransitionClass(el, startClass);
       if (!cb.cancelled) {
         addTransitionClass(el, toClass);
@@ -7791,7 +7791,7 @@ function leave (vnode, rm) {
     checkDuration(explicitLeaveDuration, 'leave', vnode);
   }
 
-  var cb = el._leaveCb = once(function () {
+  var cb = el._leaveCb = once(function (){
     if (el.parentNode && el.parentNode._pending) {
       el.parentNode._pending[vnode.key] = null;
     }
@@ -7817,7 +7817,7 @@ function leave (vnode, rm) {
     performLeave();
   }
 
-  function performLeave () {
+  function performLeave (){
     // the delayed leave may have already been cancelled
     if (cb.cancelled) {
       return
@@ -7830,7 +7830,7 @@ function leave (vnode, rm) {
     if (expectsCSS) {
       addTransitionClass(el, leaveClass);
       addTransitionClass(el, leaveActiveClass);
-      nextFrame(function () {
+      nextFrame(function (){
         removeTransitionClass(el, leaveClass);
         if (!cb.cancelled) {
           addTransitionClass(el, leaveToClass);
@@ -7939,7 +7939,7 @@ var patch = createPatchFunction({ nodeOps: nodeOps, modules: modules });
 /* istanbul ignore if */
 if (isIE9) {
   // http://www.matts411.com/post/internet-explorer-9-oninput/
-  document.addEventListener('selectionchange', function () {
+  document.addEventListener('selectionchange', function (){
     var el = document.activeElement;
     if (el && el.vmodel) {
       trigger(el, 'input');
@@ -7952,7 +7952,7 @@ var directive = {
     if (vnode.tag === 'select') {
       // #6903
       if (oldVnode.elm && !oldVnode.elm._vOptions) {
-        mergeVNodeHook(vnode, 'postpatch', function () {
+        mergeVNodeHook(vnode, 'postpatch', function (){
           directive.componentUpdated(el, binding, vnode);
         });
       } else {
@@ -8004,7 +8004,7 @@ function setSelected (el, binding, vm) {
   actuallySetSelected(el, binding, vm);
   /* istanbul ignore if */
   if (isIE || isEdge) {
-    setTimeout(function () {
+    setTimeout(function (){
       actuallySetSelected(el, binding, vm);
     }, 0);
   }
@@ -8089,7 +8089,7 @@ var show = {
       el.style.display === 'none' ? '' : el.style.display;
     if (value && transition$$1) {
       vnode.data.show = true;
-      enter(vnode, function () {
+      enter(vnode, function (){
         el.style.display = originalDisplay;
       });
     } else {
@@ -8108,11 +8108,11 @@ var show = {
     if (transition$$1) {
       vnode.data.show = true;
       if (value) {
-        enter(vnode, function () {
+        enter(vnode, function (){
           el.style.display = el.__vOriginalDisplay;
         });
       } else {
-        leave(vnode, function () {
+        leave(vnode, function (){
           el.style.display = 'none';
         });
       }
@@ -8307,7 +8307,7 @@ var Transition = {
       if (mode === 'out-in') {
         // return placeholder node and queue update when leave finishes
         this._leaving = true;
-        mergeVNodeHook(oldData, 'afterLeave', function () {
+        mergeVNodeHook(oldData, 'afterLeave', function (){
           this$1._leaving = false;
           this$1.$forceUpdate();
         });
@@ -8317,7 +8317,7 @@ var Transition = {
           return oldRawChild
         }
         var delayedLeave;
-        var performLeave = function () { delayedLeave(); };
+        var performLeave = function (){ delayedLeave(); };
         mergeVNodeHook(data, 'afterEnter', performLeave);
         mergeVNodeHook(data, 'enterCancelled', performLeave);
         mergeVNodeHook(oldData, 'delayLeave', function (leave) { delayedLeave = leave; });
@@ -8394,7 +8394,7 @@ var TransitionGroup = {
     return h(tag, null, children)
   },
 
-  beforeUpdate: function beforeUpdate () {
+  beforeUpdate: function beforeUpdate (){
     // force removing pass
     this.__patch__(
       this._vnode,
@@ -8405,7 +8405,7 @@ var TransitionGroup = {
     this._vnode = this.kept;
   },
 
-  updated: function updated () {
+  updated: function updated (){
     var children = this.prevChildren;
     var moveClass = this.moveClass || ((this.name || 'v') + '-move');
     if (!children.length || !this.hasMove(children[0].elm, moveClass)) {
@@ -8530,7 +8530,7 @@ Vue.prototype.$mount = function (
 // devtools global hook
 /* istanbul ignore next */
 if (inBrowser) {
-  setTimeout(function () {
+  setTimeout(function (){
     if (config.devtools) {
       if (devtools) {
         devtools.emit('init', Vue);
@@ -8913,7 +8913,7 @@ function parseHTML (html, options) {
     html = html.substring(n);
   }
 
-  function parseStartTag () {
+  function parseStartTag (){
     var start = html.match(startTagOpen);
     if (start) {
       var match = {
@@ -9239,7 +9239,7 @@ function parse (
       }
     },
 
-    end: function end () {
+    end: function end (){
       // remove trailing whitespace
       var element = stack[stack.length - 1];
       var lastNode = element.children[element.children.length - 1];

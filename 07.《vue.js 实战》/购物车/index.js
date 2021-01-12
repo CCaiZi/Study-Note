@@ -22,7 +22,7 @@ var app = new Vue({
         ]
     },
     computed: {
-        totalPrice: function() {
+        totalPrice: function(){
             var total = 0;
             for (var i = 0; i < this.list.length; i++) {
                 var item = this.list[i];

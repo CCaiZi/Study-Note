@@ -12,7 +12,7 @@
 
 ```bash
 const test = {
-  func: function() {
+  func: function(){
     return this;
   }
 };
@@ -30,7 +30,7 @@ console.log(test.func());   // {prop: 42, func: ƒ}
 
 ```bash
 const test = {
-  func: function() {
+  func: function(){
     return this;
   }
 };
@@ -47,12 +47,12 @@ console.log(test2());   // Window {window: Window, self: Window, document: docu
 
 ```bash
 const test = {
-        func: function() {
+        func: function(){
             return this;
         }
     };
 
-    var test2 = function() {
+    var test2 = function(){
         return this;
     }
 
@@ -66,7 +66,7 @@ const test = {
 
 ```bash
 const test = {
-    func: function() {
+    func: function(){
         "use strict";   // 严格模式
         return this;
     },

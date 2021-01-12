@@ -19,7 +19,7 @@ function Car(make, model, year) {
 }
 
 Car.prototype={
-  getMake: function() {
+  getMake: function(){
     return this.make
   }
 }

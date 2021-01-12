@@ -39,7 +39,7 @@ new 运算符创建一个用户定义的对象类型的实例或具有构造函�
 知道了 new 操作符的原理，下面我们自己来实现一个 FakeNew 函数。
 
 
-function FakeNew() {
+function FakeNew(){
     let obj = {};
   
     // 将类数组 arguments 转为数组，同时将第一个参数也就是构造函数 shift 出来
@@ -59,7 +59,7 @@ function User(name) {
     this.name = name;
 }
 
-User.prototype.getName = function() {
+User.prototype.getName = function(){
     return this.name;
 }
 
